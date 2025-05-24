@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ESP32 Control</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        h1 {
+            color: #333;
+        }
+        #status {
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 1em;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>ESP32 LED Control</h1>
+    <div id="status">
+        <p>Connecting to ESP32...</p>
+    </div>
+    <button onclick="toggleLED()">Toggle LED</button>
+
+    <script>
+        // IMPORTANT: Replace with the actual IP address of your ESP32
+        const esp32Ip = 'YOUR_ESP32_IP_ADDRESS'; 
+
+        async function toggleLED() {
+            try {
+                const response = await fetch(`http://${esp32Ip}/led/toggle`);
+                const data = await response.text();
+                document.getElementById('status').innerText = data;
+            } catch (error) {
+                console.error('Error toggling LED:', error);
+                document.getElementById('status').innerText = 'Error connecting to ESP32.';
+            }
+        }
+
+        // Optional: Function to get initial LED state when the page loads
+        async function getLEDState() {
+             try {
+                const response = await fetch(`http://${esp32Ip}/led/state`);
+                const data = await response.text();
+                document.getElementById('status').innerText = `LED is initially ${data}`; // Display initial state
+            } catch (error) {
+                console.error('Error getting LED state:', error);
+                document.getElementById('status').innerText = 'Could not get initial LED state.';
+            }
+        }
+
+        // Call getLEDState when the page loads (optional)
+        // window.onload = getLEDState;
+
+    </script>
+</body>
+</html>
