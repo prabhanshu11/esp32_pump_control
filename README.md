@@ -25,3 +25,15 @@ This is a PlatformIO project. You will need to have PlatformIO Core installed to
 - Framework: Arduino
 
 Refer to the `platformio.ini` file for detailed configuration.
+
+## Device Functionality
+
+### LED Indication
+The onboard LED (connected to GPIO2) blinks continuously. This serves as a visual indicator that the device is powered on and the main program loop is executing.
+
+### Web Status Interface
+The ESP32 hosts a Wi-Fi Access Point (AP) to provide a basic status web page.
+- **SSID:** `ESP32-Status-AP`
+- **Password:** None (open network)
+- **IP Address:** Connect to the AP and then navigate to `http://192.168.4.1` in a web browser.
+- **Web Page Content:** The page displays a simple message: "ESP32 Status: Online and Blinking!", confirming the device's operational status.
